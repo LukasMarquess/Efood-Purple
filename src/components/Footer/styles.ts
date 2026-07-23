@@ -1,0 +1,39 @@
+import styled from 'styled-components'
+import { theme } from '../../styles/theme'
+
+export const FooterContainer = styled.footer`
+  background-color: ${theme.colors.primaryLight};
+  padding: 2.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 4rem;
+
+  img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
+`
+
+export const SocialLinks = styled.div`
+  display: flex;
+  gap: 0.5rem;
+
+  span {
+    width: 24px;
+    height: 24px;
+    background-color: ${theme.colors.primary};
+    border-radius: 50%;
+    display: inline-block;
+  }
+`
+
+export const Disclaimer = styled.p`
+  color: ${theme.colors.primary};
+  font-size: 0.75rem;
+  max-width: 480px;
+  text-align: center;
+  line-height: 1.4;
+`
