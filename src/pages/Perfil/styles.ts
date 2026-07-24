@@ -84,7 +84,8 @@ export const BannerContent = styled.div`
 `
 
 export const MainContainer = styled.main`
-  max-width: 1024px;
+  width: 100%;
+  max-width: 1088px;
   margin: 0 auto;
   padding: 4rem 2rem;
 
@@ -95,11 +96,12 @@ export const MainContainer = styled.main`
 
 export const ProductsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 320px);
+  justify-content: center;
   gap: 2rem;
 
   @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 320px);
   }
 
   @media (max-width: 768px) {
