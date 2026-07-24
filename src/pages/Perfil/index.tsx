@@ -3,6 +3,7 @@ import { Footer } from '../../components/Footer'
 import { ProductCard } from '../../components/ProductCard'
 import {
   HeaderBar,
+  HeaderContent,
   Banner,
   BannerContent,
   MainContainer,
@@ -71,9 +72,11 @@ export default function Perfil() {
   return (
     <>
       <HeaderBar>
-        <Link to="/">Restaurantes</Link>
-        <h2>eFood</h2>
-        <p>0 produto(s) no carrinho</p>
+        <HeaderContent>
+          <Link to="/">Restaurantes</Link>
+          <h2>eFood</h2>
+          <p>0 produto(s) no carrinho</p>
+        </HeaderContent>
       </HeaderBar>
 
       <Banner $bgImage={mockRestaurant.bannerImage}>

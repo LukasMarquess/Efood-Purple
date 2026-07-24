@@ -1,9 +1,14 @@
 import styled from 'styled-components'
 import { theme } from '../../styles/theme'
 
-export const HeaderBar = styled.div`
+export const HeaderBar = styled.header`
   background-color: ${theme.colors.primaryLight};
-  padding: 2rem 10%;
+`
+
+export const HeaderContent = styled.div`
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 2rem; /* Mantém apenas o espaçamento para cima/baixo e laterais fixas */
   display: flex;
   justify-content: space-between;
   align-items: center;
