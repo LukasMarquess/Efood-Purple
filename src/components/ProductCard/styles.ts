@@ -4,11 +4,11 @@ import { theme } from '../../styles/theme'
 export const CardContainer = styled.div`
   background-color: ${theme.colors.primary};
   color: ${theme.colors.white};
-  padding: 8px;
-  border-radius: 8px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  height: 100%;
 
   button {
     width: 300px;
@@ -18,9 +18,8 @@ export const CardContainer = styled.div`
 
 export const ProductImage = styled.img`
   width: 100%;
-  height: 160px;
+  height: 200px;
   object-fit: cover;
-  /* border-radius: 8px;
 `
 
 export const Title = styled.h4`

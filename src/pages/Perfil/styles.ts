@@ -7,10 +7,12 @@ export const HeaderBar = styled.header<{ $bgImage: string }>`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 150px;
+  display: flex;
+  align-items: center;
 `
 
 export const HeaderContent = styled.div`
+  width: 100%;
   max-width: 1024px;
   margin: 0 auto;
   padding: 2rem;
@@ -33,7 +35,9 @@ export const HeaderContent = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
+    justify-content: center;
+    text-align: center;
   }
 `
 
@@ -62,12 +66,20 @@ export const BannerContent = styled.div`
     font-size: 32px;
     font-weight: 100;
     color: ${theme.colors.white};
+
+    @media (max-width: 768px) {
+      font-size: 24px;
+    }
   }
 
   h1 {
     font-size: 32px;
     font-weight: 900;
     color: ${theme.colors.white};
+
+    @media (max-width: 768px) {
+      font-size: 28px;
+    }
   }
 `
 
@@ -75,6 +87,10 @@ export const MainContainer = styled.main`
   max-width: 1024px;
   margin: 0 auto;
   padding: 4rem 2rem;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+  }
 `
 
 export const ProductsGrid = styled.div`
@@ -82,7 +98,12 @@ export const ProductsGrid = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 `
