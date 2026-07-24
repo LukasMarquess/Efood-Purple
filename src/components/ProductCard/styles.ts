@@ -4,43 +4,51 @@ import { theme } from '../../styles/theme'
 export const CardContainer = styled.div`
   background-color: ${theme.colors.primary};
   color: ${theme.colors.white};
-  padding: 1rem;
+  padding: 8px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  button {
+    width: 300px;
+    heigth: 24px;
+  }
 `
 
 export const ProductImage = styled.img`
   width: 100%;
   height: 160px;
   object-fit: cover;
-  border-radius: 8px;
+  /* border-radius: 8px;
 `
 
 export const Title = styled.h4`
-  font-size: 1rem;
+  font-size: 16px;
+  font-weight: 900;
   margin-top: 0.5rem;
 `
 
 export const Description = styled.p`
-  font-size: 0.875rem;
-  line-height: 1.4;
-  margin-bottom: 1rem;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  margin-bottom: 0.5rem;
   flex: 1;
 `
 
 export const AddButton = styled.button`
-  background-color: ${theme.colors.white};
+  background-color: ${theme.colors.primaryLight};
   color: ${theme.colors.primary};
-  font-weight: bold;
-  padding: 0.5rem;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 4px 0;
   width: 100%;
   text-align: center;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  /* border-radius: 4px;
+  transition: opacity 0.2s;
 
   &:hover {
-    background-color: ${theme.colors.primaryLight};
+    opacity: 0.8;
   }
 `

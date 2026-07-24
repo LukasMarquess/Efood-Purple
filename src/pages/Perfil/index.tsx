@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom'
 import { Footer } from '../../components/Footer'
 import { ProductCard } from '../../components/ProductCard'
+import logoImg from '../../assets/logo.png'
+import fundoIMG from '../../assets/fundoH.png'
+import macalao from '../../assets/macaraohome.png'
+import macalaoP from '../../assets/macalaoperfil.png'
 import {
   HeaderBar,
   HeaderContent,
@@ -13,8 +17,7 @@ import {
 const mockRestaurant = {
   title: 'La Dolce Vita Trattoria',
   category: 'Italiana',
-  bannerImage:
-    'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=500&auto=format&fit=crop'
+  bannerImage: macalao
 }
 
 const mockProducts = [
@@ -23,58 +26,52 @@ const mockProducts = [
     title: 'Pizza Marguerita',
     description:
       'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image:
-      'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=500&auto=format&fit=crop' // Imagem de pizza
+    image: macalaoP
   },
   {
     id: 2,
     title: 'Pizza Marguerita',
     description:
       'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image:
-      'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=500&auto=format&fit=crop'
+    image: macalaoP
   },
   {
     id: 3,
     title: 'Pizza Marguerita',
     description:
       'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image:
-      'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=500&auto=format&fit=crop'
+    image: macalaoP
   },
   {
     id: 4,
     title: 'Pizza Marguerita',
     description:
       'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image:
-      'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=500&auto=format&fit=crop'
+    image: macalaoP
   },
   {
     id: 5,
     title: 'Pizza Marguerita',
     description:
       'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image:
-      'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=500&auto=format&fit=crop'
+    image: macalaoP
   },
   {
     id: 6,
     title: 'Pizza Marguerita',
     description:
       'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image:
-      'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=500&auto=format&fit=crop'
+    image: macalaoP
   }
 ]
 
 export default function Perfil() {
   return (
     <>
-      <HeaderBar>
+      <HeaderBar $bgImage={fundoIMG}>
         <HeaderContent>
           <Link to="/">Restaurantes</Link>
-          <h2>eFood</h2>
+          <img src={logoImg} alt="Logo da efood" />
           <p>0 produto(s) no carrinho</p>
         </HeaderContent>
       </HeaderBar>

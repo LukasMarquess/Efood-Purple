@@ -11,8 +11,8 @@ export const FooterContainer = styled.footer`
   margin-top: 4rem;
 
   img {
-    width: 30px;
-    height: 30px;
+    width: 125px;
+    height: 58px;
     object-fit: contain;
   }
 `
@@ -27,6 +27,12 @@ export const SocialLinks = styled.div`
     background-color: ${theme.colors.primary};
     border-radius: 50%;
     display: inline-block;
+  }
+
+  img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
   }
 `
 

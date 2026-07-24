@@ -34,9 +34,10 @@ export const TagsContainer = styled.div`
 export const Tag = styled.span`
   background-color: ${theme.colors.primary};
   color: ${theme.colors.white};
-  padding: 4px 8px;
-  font-size: 0.8rem;
-  font-weight: bold;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-block;
 `
 
 export const ContentContainer = styled.div`
@@ -53,7 +54,8 @@ export const HeaderRow = styled.div`
   margin-bottom: 1rem;
 
   h3 {
-    font-size: 1.25rem;
+    font-size: 18px;
+    font-weight: 700;
     color: ${theme.colors.primary};
   }
 `
@@ -62,19 +64,20 @@ export const Rating = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 18px;
+  font-weight: 700;
   color: ${theme.colors.primary};
-  font-weight: bold;
 
   &::after {
     content: '★';
     color: #ffb300;
-    font-size: 1.2rem;
   }
 `
 
 export const Description = styled.p`
-  font-size: 0.875rem;
-  line-height: 1.5;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
   margin-bottom: 1rem;
   color: ${theme.colors.primary};
   flex: 1;
@@ -83,9 +86,12 @@ export const Description = styled.p`
 export const LearnMoreButton = styled(Link)`
   background-color: ${theme.colors.primary};
   color: ${theme.colors.white};
-  padding: 0.5rem 1rem;
+  padding: 4px 6px;
+  font-size: 14px;
+  font-weight: 700;
+  width: 82px;
+  height: 24px;
   text-decoration: none;
-  font-weight: bold;
   display: inline-block;
   align-self: flex-start;
   transition: opacity 0.2s;

@@ -3,11 +3,12 @@ import { FooterContainer, SocialLinks, Disclaimer } from './styles'
 import instagramIcon from '../../assets/instagram.png'
 import facebookIcon from '../../assets/facebook.png'
 import twitterIcon from '../../assets/twitter.png'
+import logoImg from '../../assets/logo.png'
 
 export function Footer() {
   return (
     <FooterContainer>
-      <h3>eFood</h3>
+      <img src={logoImg} alt="Logo da efood" />
 
       <SocialLinks>
         <a href="#" target="_blank" rel="noreferrer">

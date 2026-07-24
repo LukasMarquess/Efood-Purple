@@ -2,23 +2,27 @@ import styled from 'styled-components'
 
 import { theme } from '../../styles/theme'
 
-export const HeaderContainer = styled.header`
+export const HeaderContainer = styled.header<{ $bgImage: string }>`
   background-color: ${theme.colors.primaryLight};
-  height: 300px;
+  background-image: url('${(props) => props.$bgImage}');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 384px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding-top: 40px;
   text-align: center;
-  padding: 2rem;
 `
-
 export const Title = styled.h1`
   color: ${theme.colors.primary};
-  margin-top: 2rem;
-  font-size: 2.2rem;
-  max-width: 550px;
-  line-height: 1.2;
+  margin-top: 7rem;
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 42px;
+  max-width: 540px;
+  text-align: center;
 `
 
 export const MainContainer = styled.main`

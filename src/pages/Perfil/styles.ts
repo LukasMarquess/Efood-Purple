@@ -1,18 +1,25 @@
 import styled from 'styled-components'
 import { theme } from '../../styles/theme'
 
-export const HeaderBar = styled.header`
+export const HeaderBar = styled.header<{ $bgImage: string }>`
   background-color: ${theme.colors.primaryLight};
+  background-image: url('${(props) => props.$bgImage}');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 150px;
 `
 
 export const HeaderContent = styled.div`
   max-width: 1024px;
   margin: 0 auto;
-  padding: 2rem; /* Mantém apenas o espaçamento para cima/baixo e laterais fixas */
+  padding: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: bold;
+
+  font-size: 18px;
+  font-weight: 900;
   color: ${theme.colors.primary};
 
   a {
@@ -35,10 +42,10 @@ export const Banner = styled.div<{ $bgImage: string }>`
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('${(props) => props.$bgImage}');
   background-size: cover;
-  background-position: center;
   background-repeat: no-repeat;
+  background-position: center 40%;
   height: 280px;
-  color: ${theme.colors.white};
+  width: 100%;
 `
 
 export const BannerContent = styled.div`
@@ -49,15 +56,18 @@ export const BannerContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: flex-start;
 
   span {
-    font-size: 2rem;
-    font-weight: 300;
+    font-size: 32px;
+    font-weight: 100;
+    color: ${theme.colors.white};
   }
 
   h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
+    font-size: 32px;
+    font-weight: 900;
+    color: ${theme.colors.white};
   }
 `
 
