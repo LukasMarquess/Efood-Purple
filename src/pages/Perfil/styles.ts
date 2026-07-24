@@ -107,3 +107,91 @@ export const ProductsGrid = styled.div`
     gap: 1.5rem;
   }
 `
+export const ModalContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`
+
+export const ModalContent = styled.div`
+  background-color: ${theme.colors.primary};
+  color: ${theme.colors.white};
+  padding: 32px;
+  width: 1024px;
+  height: 344px;
+  display: flex;
+  gap: 24px;
+  position: relative;
+  box-sizing: border-box;
+
+  @media (max-width: 1024px) {
+    width: 90%;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+    padding: 24px;
+  }
+`
+
+export const ModalImage = styled.img`
+  width: 280px;
+  height: 280px;
+  object-fit: cover;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 200px;
+  }
+`
+
+export const ModalDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 900;
+    margin-bottom: 16px;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 16px;
+  }
+
+  button {
+    background-color: ${theme.colors.primaryLight};
+    color: ${theme.colors.primary};
+    font-weight: 700;
+    font-size: 14px;
+    padding: 4px 8px;
+    border: none;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+`
+
+export const CloseIcon = styled.img`
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+`
