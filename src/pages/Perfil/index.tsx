@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
 import { Footer } from '../../components/Footer'
 import { ProductCard } from '../../components/ProductCard'
 import logoImg from '../../assets/logo.png'
@@ -66,6 +67,10 @@ const mockProducts = [
 ]
 
 export default function Perfil() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <>
       <HeaderBar $bgImage={fundoIMG}>
