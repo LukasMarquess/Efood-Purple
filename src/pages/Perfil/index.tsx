@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Footer } from '../../components/Footer'
 import { ProductCard } from '../../components/ProductCard'
 import logoImg from '../../assets/logo.png'
-import fundoIMG from '../../assets/fundoH.png'
-import macalao from '../../assets/macaraohome.png'
-import macalaoP from '../../assets/macalaoperfil.png'
 import closeIcon from '../../assets/close.png'
+import fundoIMG from '../../assets/fundoH.png'
+import { Restaurante, Produto } from '../../types'
+
 import {
   HeaderBar,
   HeaderContent,
@@ -21,62 +21,25 @@ import {
   CloseIcon
 } from './styles'
 
-const mockRestaurant = {
-  title: 'La Dolce Vita Trattoria',
-  category: 'Italiana',
-  bannerImage: macalao
-}
-
-const mockProducts = [
-  {
-    id: 1,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: macalaoP
-  },
-  {
-    id: 2,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: macalaoP
-  },
-  {
-    id: 3,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: macalaoP
-  },
-  {
-    id: 4,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: macalaoP
-  },
-  {
-    id: 5,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: macalaoP
-  },
-  {
-    id: 6,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: macalaoP
-  }
-]
-
 export default function Perfil() {
+  const { id } = useParams()
+
+  const [restaurante, setRestaurante] = useState<Restaurante>()
+
+  const [modalProduto, setModalProduto] = useState<Produto | undefined>()
+
   useEffect(() => {
     window.scrollTo(0, 0)
-  }, [])
-  const [isModalVisible, setIsModalVisible] = useState(false)
+
+    fetch(`https://api-ebac.vercel.app/api/efood/restaurantes/${id}`)
+      .then((res) => res.json())
+      .then((res) => setRestaurante(res))
+      .catch((err) => console.error('Erro ao carregar o restaurante:', err))
+  }, [id])
+
+  if (!restaurante) {
+    return <h3>Carregando...</h3>
+  }
 
   return (
     <>
@@ -88,58 +51,52 @@ export default function Perfil() {
         </HeaderContent>
       </HeaderBar>
 
-      <Banner $bgImage={mockRestaurant.bannerImage}>
+      <Banner $bgImage={restaurante.capa}>
         <BannerContent>
-          <span>{mockRestaurant.category}</span>
-          <h1>{mockRestaurant.title}</h1>
+          <span>{restaurante.tipo}</span>
+          <h1>{restaurante.titulo}</h1>
         </BannerContent>
       </Banner>
 
       <MainContainer>
         <ProductsGrid>
-          {mockProducts.map((product) => (
+          {restaurante.cardapio.map((produto) => (
             <ProductCard
-              key={product.id}
-              title={product.title}
-              description={product.description}
-              image={product.image}
-              onClick={() => setIsModalVisible(true)}
+              key={produto.id}
+              title={produto.nome}
+              description={produto.descricao}
+              image={produto.foto}
+              onClick={() => setModalProduto(produto)}
             />
           ))}
         </ProductsGrid>
       </MainContainer>
 
-      {isModalVisible && (
-        <ModalContainer onClick={() => setIsModalVisible(false)}>
+      {modalProduto && (
+        <ModalContainer onClick={() => setModalProduto(undefined)}>
           <ModalContent onClick={(e) => e.stopPropagation()}>
             <CloseIcon
               src={closeIcon}
               alt="Fechar"
-              onClick={() => setIsModalVisible(false)}
+              onClick={() => setModalProduto(undefined)}
             />
 
-            <ModalImage src={macalaoP} alt="Pizza" />
+            <ModalImage src={modalProduto.foto} alt={modalProduto.nome} />
 
             <ModalDetails>
               <div>
-                <h3>Pizza Marguerita</h3>
+                <h3>{modalProduto.nome}</h3>
                 <p>
-                  A pizza Margherita é uma pizza clássica da culinária italiana,
-                  reconhecida por sua simplicidade e sabor inigualável. Ela é
-                  feita com uma base de massa fina e crocante, coberta com molho
-                  de tomate fresco, queijo mussarela de alta qualidade,
-                  manjericão fresco e azeite de oliva extra-virgem. A combinação
-                  de sabores é perfeita, com o molho de tomate suculento e
-                  ligeiramente ácido, o queijo derretido e cremoso e as folhas
-                  de manjericão frescas, que adicionam um toque de sabor
-                  herbáceo. É uma pizza simples, mas deliciosa, que agrada a
-                  todos os paladares e é uma ótima opção para qualquer ocasião.
+                  {modalProduto.descricao}
                   <br />
                   <br />
-                  Serve: de 2 a 3 pessoas
+                  {modalProduto.porcao}
                 </p>
               </div>
-              <button>Adicionar ao carrinho - R$ 60,90</button>
+              <button>
+                Adicionar ao carrinho - R${' '}
+                {modalProduto.preco.toFixed(2).replace('.', ',')}
+              </button>
             </ModalDetails>
           </ModalContent>
         </ModalContainer>

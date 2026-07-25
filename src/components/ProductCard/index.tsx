@@ -10,7 +10,7 @@ interface ProductCardProps {
   image: string
   title: string
   description: string
-  onClick: () => void // <-- Adicione isso
+  onClick: () => void
 }
 
 export const ProductCard = ({
