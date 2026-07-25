@@ -15,7 +15,7 @@ export const HeaderContent = styled.div`
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -55,7 +55,7 @@ export const Banner = styled.div<{ $bgImage: string }>`
 export const BannerContent = styled.div`
   max-width: 1024px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 0;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -85,9 +85,13 @@ export const BannerContent = styled.div`
 
 export const MainContainer = styled.main`
   width: 100%;
-  max-width: 1088px;
+  max-width: 1024px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 4rem 0;
+
+  @media (max-width: 1024px) {
+    padding: 4rem 2rem;
+  }
 
   @media (max-width: 768px) {
     padding: 2rem 1rem;
@@ -96,17 +100,18 @@ export const MainContainer = styled.main`
 
 export const ProductsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 320px);
+  grid-template-columns: repeat(3, 1fr);
   justify-content: center;
-  gap: 2rem;
+  gap: 32px;
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 320px);
+    gap: 32px;
   }
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 24px;
   }
 `
 export const ModalContainer = styled.div`
