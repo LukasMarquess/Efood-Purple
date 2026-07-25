@@ -81,6 +81,10 @@ export const BannerContent = styled.div`
       font-size: 28px;
     }
   }
+
+  @media (max-width: 1024px) {
+    padding: 2rem 1rem;
+  }
 `
 
 export const MainContainer = styled.main`

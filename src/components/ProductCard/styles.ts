@@ -13,6 +13,12 @@ export const CardContainer = styled.div`
   box-sizing: border-box;
   overflow: hidden;
   align-items: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    min-height: 338px;
+  }
 `
 
 export const ProductImage = styled.img`
@@ -20,6 +26,10 @@ export const ProductImage = styled.img`
   height: 167px;
   object-fit: cover;
   flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 export const Title = styled.h4`
@@ -27,6 +37,10 @@ export const Title = styled.h4`
   font-weight: 900;
   margin-top: 0;
   width: 300px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 export const Description = styled.p`
@@ -40,6 +54,10 @@ export const Description = styled.p`
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 export const AddButton = styled.button`
@@ -56,6 +74,10 @@ export const AddButton = styled.button`
   box-sizing: border-box;
   margin-top: auto;
   transition: opacity 0.2s;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 
   &:hover {
     opacity: 0.8;
