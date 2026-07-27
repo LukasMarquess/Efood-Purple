@@ -1,75 +1,45 @@
-import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { Footer } from '../../components/Footer'
 import { ProductCard } from '../../components/ProductCard'
 import logoImg from '../../assets/logo.png'
+import closeIcon from '../../assets/close.png'
 import fundoIMG from '../../assets/fundoH.png'
-import macalao from '../../assets/macaraohome.png'
-import macalaoP from '../../assets/macalaoperfil.png'
+import { Restaurante, Produto } from '../../types'
+
 import {
   HeaderBar,
   HeaderContent,
   Banner,
   BannerContent,
   MainContainer,
-  ProductsGrid
+  ProductsGrid,
+  ModalContainer,
+  ModalContent,
+  ModalImage,
+  ModalDetails,
+  CloseIcon
 } from './styles'
 
-const mockRestaurant = {
-  title: 'La Dolce Vita Trattoria',
-  category: 'Italiana',
-  bannerImage: macalao
-}
-
-const mockProducts = [
-  {
-    id: 1,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: macalaoP
-  },
-  {
-    id: 2,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: macalaoP
-  },
-  {
-    id: 3,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: macalaoP
-  },
-  {
-    id: 4,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: macalaoP
-  },
-  {
-    id: 5,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: macalaoP
-  },
-  {
-    id: 6,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: macalaoP
-  }
-]
-
 export default function Perfil() {
+  const { id } = useParams()
+
+  const [restaurante, setRestaurante] = useState<Restaurante>()
+
+  const [modalProduto, setModalProduto] = useState<Produto | undefined>()
+
   useEffect(() => {
     window.scrollTo(0, 0)
-  }, [])
+
+    fetch(`https://api-ebac.vercel.app/api/efood/restaurantes/${id}`)
+      .then((res) => res.json())
+      .then((res) => setRestaurante(res))
+      .catch((err) => console.error('Erro ao carregar o restaurante:', err))
+  }, [id])
+
+  if (!restaurante) {
+    return <h3>Carregando...</h3>
+  }
 
   return (
     <>
@@ -81,25 +51,56 @@ export default function Perfil() {
         </HeaderContent>
       </HeaderBar>
 
-      <Banner $bgImage={mockRestaurant.bannerImage}>
+      <Banner $bgImage={restaurante.capa}>
         <BannerContent>
-          <span>{mockRestaurant.category}</span>
-          <h1>{mockRestaurant.title}</h1>
+          <span>{restaurante.tipo}</span>
+          <h1>{restaurante.titulo}</h1>
         </BannerContent>
       </Banner>
 
       <MainContainer>
         <ProductsGrid>
-          {mockProducts.map((product) => (
+          {restaurante.cardapio.map((produto) => (
             <ProductCard
-              key={product.id}
-              title={product.title}
-              description={product.description}
-              image={product.image}
+              key={produto.id}
+              title={produto.nome}
+              description={produto.descricao}
+              image={produto.foto}
+              onClick={() => setModalProduto(produto)}
             />
           ))}
         </ProductsGrid>
       </MainContainer>
+
+      {modalProduto && (
+        <ModalContainer onClick={() => setModalProduto(undefined)}>
+          <ModalContent onClick={(e) => e.stopPropagation()}>
+            <CloseIcon
+              src={closeIcon}
+              alt="Fechar"
+              onClick={() => setModalProduto(undefined)}
+            />
+
+            <ModalImage src={modalProduto.foto} alt={modalProduto.nome} />
+
+            <ModalDetails>
+              <div>
+                <h3>{modalProduto.nome}</h3>
+                <p>
+                  {modalProduto.descricao}
+                  <br />
+                  <br />
+                  {modalProduto.porcao}
+                </p>
+              </div>
+              <button>
+                Adicionar ao carrinho - R${' '}
+                {modalProduto.preco.toFixed(2).replace('.', ',')}
+              </button>
+            </ModalDetails>
+          </ModalContent>
+        </ModalContainer>
+      )}
 
       <Footer />
     </>

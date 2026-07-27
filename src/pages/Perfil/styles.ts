@@ -39,6 +39,10 @@ export const HeaderContent = styled.div`
     justify-content: center;
     text-align: center;
   }
+
+  @media (max-width: 1024px) {
+    padding: 2rem 1rem;
+  }
 `
 
 export const Banner = styled.div<{ $bgImage: string }>`
@@ -178,6 +182,7 @@ export const ModalDetails = styled.div`
   p {
     font-size: 14px;
     line-height: 22px;
+    font-weight: 400;
     margin-bottom: 16px;
   }
 

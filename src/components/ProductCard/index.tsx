@@ -10,15 +10,22 @@ interface ProductCardProps {
   image: string
   title: string
   description: string
+  onClick: () => void
 }
 
-export function ProductCard({ image, title, description }: ProductCardProps) {
+export const ProductCard = ({
+  title,
+  description,
+  image,
+  onClick
+}: ProductCardProps) => {
   return (
     <CardContainer>
-      <ProductImage src={image} alt={`Imagem de ${title}`} />
+      <ProductImage src={image} alt={title} />
       <Title>{title}</Title>
       <Description>{description}</Description>
-      <AddButton>Adicionar ao carrinho</AddButton>
+
+      <AddButton onClick={onClick}>Mais detalhes</AddButton>
     </CardContainer>
   )
 }

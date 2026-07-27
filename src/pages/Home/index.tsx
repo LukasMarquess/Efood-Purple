@@ -1,9 +1,9 @@
+import { useEffect, useState } from 'react'
 import { RestaurantCard } from '../../components/RestaurantCard'
 import { Footer } from '../../components/Footer'
-import sushiImage from '../../assets/sushi.png'
-import macaraoImage from '../../assets/macaraohome.png'
 import logoImg from '../../assets/logo.png'
 import fundoIMG from '../../assets/fundoH.png'
+import { Restaurante } from '../../types'
 import {
   HeaderContainer,
   Title,
@@ -11,64 +11,16 @@ import {
   RestaurantsGrid
 } from './styles'
 
-const mockRestaurants = [
-  {
-    id: 1,
-    title: 'Hioki Sushi',
-    rating: 4.9,
-    description:
-      'Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida. Experimente o Japão sem sair do lar com nosso delivery!',
-    image: sushiImage,
-    tags: ['Destaque da semana', 'Japonesa']
-  },
-  {
-    id: 2,
-    title: 'La Dolce Vita Trattoria',
-    rating: 4.6,
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    image: macaraoImage,
-    tags: ['Italiana']
-  },
-  {
-    id: 3,
-    title: 'La Dolce Vita Trattoria',
-    rating: 4.6,
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    image: macaraoImage,
-    tags: ['Italiana']
-  },
-  {
-    id: 4,
-    title: 'La Dolce Vita Trattoria',
-    rating: 4.6,
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    image: macaraoImage,
-    tags: ['Italiana']
-  },
-  {
-    id: 5,
-    title: 'La Dolce Vita Trattoria',
-    rating: 4.6,
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    image: macaraoImage,
-    tags: ['Italiana']
-  },
-  {
-    id: 6,
-    title: 'La Dolce Vita Trattoria',
-    rating: 4.6,
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    image: macaraoImage,
-    tags: ['Italiana']
-  }
-]
-
 export default function Home() {
+  const [restaurantes, setRestaurantes] = useState<Restaurante[]>([])
+
+  useEffect(() => {
+    fetch('https://api-ebac.vercel.app/api/efood/restaurantes')
+      .then((res) => res.json())
+      .then((res) => setRestaurantes(res))
+      .catch((err) => console.error('Erro ao carregar restaurantes:', err))
+  }, [])
+
   return (
     <>
       <HeaderContainer $bgImage={fundoIMG}>
@@ -78,15 +30,19 @@ export default function Home() {
 
       <MainContainer>
         <RestaurantsGrid>
-          {mockRestaurants.map((restaurant) => (
+          {restaurantes.map((restaurant) => (
             <RestaurantCard
               key={restaurant.id}
               id={restaurant.id}
-              title={restaurant.title}
-              rating={restaurant.rating}
-              description={restaurant.description}
-              image={restaurant.image}
-              tags={restaurant.tags}
+              title={restaurant.titulo}
+              rating={restaurant.avaliacao}
+              description={restaurant.descricao}
+              image={restaurant.capa}
+              tags={
+                restaurant.destacado
+                  ? ['Destaque da semana', restaurant.tipo]
+                  : [restaurant.tipo]
+              }
             />
           ))}
         </RestaurantsGrid>
