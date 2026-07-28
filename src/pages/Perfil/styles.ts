@@ -27,10 +27,20 @@ export const HeaderContent = styled.div`
   a {
     color: ${theme.colors.primary};
     transition: opacity 0.2s;
+    flex: 1;
 
     &:hover {
       opacity: 0.7;
     }
+  }
+
+  img {
+    flex: none;
+  }
+
+  p {
+    flex: 1;
+    text-align: right;
   }
 
   @media (max-width: 768px) {
