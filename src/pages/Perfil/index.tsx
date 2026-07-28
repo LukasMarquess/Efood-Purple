@@ -6,6 +6,9 @@ import logoImg from '../../assets/logo.png'
 import closeIcon from '../../assets/close.png'
 import fundoIMG from '../../assets/fundoH.png'
 import { Restaurante, Produto } from '../../types'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../store'
+import { add, open } from '../../store/reducers/cart'
 
 import {
   HeaderBar,
@@ -23,10 +26,11 @@ import {
 
 export default function Perfil() {
   const { id } = useParams()
-
   const [restaurante, setRestaurante] = useState<Restaurante>()
-
   const [modalProduto, setModalProduto] = useState<Produto | undefined>()
+
+  const dispatch = useDispatch()
+  const { items } = useSelector((state: RootState) => state.cart)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -47,7 +51,9 @@ export default function Perfil() {
         <HeaderContent>
           <Link to="/">Restaurantes</Link>
           <img src={logoImg} alt="Logo da efood" />
-          <p>0 produto(s) no carrinho</p>
+          <p onClick={() => dispatch(open())} style={{ cursor: 'pointer' }}>
+            {items.length} produto(s) no carrinho
+          </p>
         </HeaderContent>
       </HeaderBar>
 
@@ -93,7 +99,13 @@ export default function Perfil() {
                   {modalProduto.porcao}
                 </p>
               </div>
-              <button>
+              <button
+                onClick={() => {
+                  dispatch(add(modalProduto))
+                  setModalProduto(undefined)
+                  dispatch(open())
+                }}
+              >
                 Adicionar ao carrinho - R${' '}
                 {modalProduto.preco.toFixed(2).replace('.', ',')}
               </button>
