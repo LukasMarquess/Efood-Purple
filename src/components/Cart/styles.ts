@@ -24,12 +24,17 @@ export const Overlay = styled.div`
 export const Sidebar = styled.aside`
   background-color: ${theme.colors.primary};
   width: 360px;
+  max-width: 100%;
   height: 100%;
   padding: 32px 8px;
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 768px) {
+    width: 75%;
+  }
 `
 
 export const CartItem = styled.div`
