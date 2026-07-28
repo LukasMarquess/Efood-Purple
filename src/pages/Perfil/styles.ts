@@ -48,6 +48,12 @@ export const HeaderContent = styled.div`
     gap: 1.5rem;
     justify-content: center;
     text-align: center;
+
+    a,
+    p {
+      flex: initial;
+      text-align: center;
+    }
   }
 
   @media (max-width: 1024px) {
