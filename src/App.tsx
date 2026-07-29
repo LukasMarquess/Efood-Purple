@@ -13,7 +13,6 @@ import { Cart } from './components/Cart'
 function App() {
   return (
     <Provider store={store}>
-      {' '}
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <BrowserRouter>

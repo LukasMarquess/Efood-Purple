@@ -1,13 +1,15 @@
 import styled from 'styled-components'
 
 import { theme } from '../../styles/theme'
+import {
+  backgroundCover,
+  container1024,
+  breakpoints
+} from '../../styles/layout'
 
 export const HeaderContainer = styled.header<{ $bgImage: string }>`
   background-color: ${theme.colors.primaryLight};
-  background-image: url('${(props) => props.$bgImage}');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  ${backgroundCover}
   height: 384px;
   display: flex;
   flex-direction: column;
@@ -26,8 +28,7 @@ export const Title = styled.h1`
 `
 
 export const MainContainer = styled.main`
-  max-width: 1024px;
-  margin: 0 auto;
+  ${container1024}
   padding: 4rem 2rem;
 `
 
@@ -36,7 +37,7 @@ export const RestaurantsGrid = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 4rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.mobile}) {
     grid-template-columns: 1fr;
   }
 `

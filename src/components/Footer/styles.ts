@@ -21,14 +21,6 @@ export const SocialLinks = styled.div`
   display: flex;
   gap: 0.5rem;
 
-  span {
-    width: 24px;
-    height: 24px;
-    background-color: ${theme.colors.primary};
-    border-radius: 50%;
-    display: inline-block;
-  }
-
   img {
     width: 24px;
     height: 24px;

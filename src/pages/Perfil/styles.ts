@@ -1,20 +1,20 @@
 import styled from 'styled-components'
 import { theme } from '../../styles/theme'
+import {
+  backgroundCover,
+  breakpoints,
+  container1024
+} from '../../styles/layout'
 
 export const HeaderBar = styled.header<{ $bgImage: string }>`
   background-color: ${theme.colors.primaryLight};
-  background-image: url('${(props) => props.$bgImage}');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  ${backgroundCover}
   display: flex;
   align-items: center;
 `
 
 export const HeaderContent = styled.div`
-  width: 100%;
-  max-width: 1024px;
-  margin: 0 auto;
+  ${container1024}
   padding: 2rem 0;
   display: flex;
   justify-content: space-between;
@@ -43,7 +43,7 @@ export const HeaderContent = styled.div`
     text-align: right;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.mobile}) {
     flex-direction: column;
     gap: 1.5rem;
     justify-content: center;
@@ -56,7 +56,7 @@ export const HeaderContent = styled.div`
     }
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: ${breakpoints.tablet}) {
     padding: 2rem 1rem;
   }
 `
@@ -73,8 +73,7 @@ export const Banner = styled.div<{ $bgImage: string }>`
 `
 
 export const BannerContent = styled.div`
-  max-width: 1024px;
-  margin: 0 auto;
+  ${container1024}
   padding: 2rem 0;
   height: 100%;
   display: flex;
@@ -87,7 +86,7 @@ export const BannerContent = styled.div`
     font-weight: 100;
     color: ${theme.colors.white};
 
-    @media (max-width: 768px) {
+    @media (max-width: ${breakpoints.mobile}) {
       font-size: 24px;
     }
   }
@@ -97,27 +96,25 @@ export const BannerContent = styled.div`
     font-weight: 900;
     color: ${theme.colors.white};
 
-    @media (max-width: 768px) {
+    @media (max-width: ${breakpoints.mobile}) {
       font-size: 28px;
     }
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: ${breakpoints.tablet}) {
     padding: 2rem 1rem;
   }
 `
 
 export const MainContainer = styled.main`
-  width: 100%;
-  max-width: 1024px;
-  margin: 0 auto;
+  ${container1024}
   padding: 4rem 0;
 
-  @media (max-width: 1024px) {
+  @media (max-width: ${breakpoints.tablet}) {
     padding: 4rem 2rem;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.mobile}) {
     padding: 2rem 1rem;
   }
 `
@@ -128,12 +125,12 @@ export const ProductsGrid = styled.div`
   justify-content: center;
   gap: 32px;
 
-  @media (max-width: 1024px) {
+  @media (max-width: ${breakpoints.tablet}) {
     grid-template-columns: repeat(2, 320px);
     gap: 32px;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.mobile}) {
     grid-template-columns: 1fr;
     gap: 24px;
   }
@@ -162,11 +159,11 @@ export const ModalContent = styled.div`
   position: relative;
   box-sizing: border-box;
 
-  @media (max-width: 1024px) {
+  @media (max-width: ${breakpoints.tablet}) {
     width: 90%;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.mobile}) {
     flex-direction: column;
     height: auto;
     padding: 24px;
@@ -178,7 +175,7 @@ export const ModalImage = styled.img`
   height: 280px;
   object-fit: cover;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.mobile}) {
     width: 100%;
     height: 200px;
   }

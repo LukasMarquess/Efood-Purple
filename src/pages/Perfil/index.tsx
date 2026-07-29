@@ -1,14 +1,15 @@
 import { Link, useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Footer } from '../../components/Footer'
 import { ProductCard } from '../../components/ProductCard'
 import logoImg from '../../assets/logo.png'
 import closeIcon from '../../assets/close.png'
 import fundoIMG from '../../assets/fundoH.png'
 import { Restaurante, Produto } from '../../types'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../store'
 import { add, open } from '../../store/reducers/cart'
+import { formatPrice } from '../../utils/format'
+import { API_ENDPOINTS } from '../../constants/api'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 
 import {
   HeaderBar,
@@ -29,18 +30,18 @@ export default function Perfil() {
   const [restaurante, setRestaurante] = useState<Restaurante>()
   const [modalProduto, setModalProduto] = useState<Produto | undefined>()
 
-  const dispatch = useDispatch()
-  const { items } = useSelector((state: RootState) => state.cart)
+  const dispatch = useAppDispatch()
+  const { items } = useAppSelector((state) => state.cart)
 
-  const quantidadeTotalItens = items.reduce(
-    (acumulador, item) => acumulador + item.quantidade,
-    0
+  const quantidadeTotalItens = useMemo(
+    () => items.reduce((acumulador, item) => acumulador + item.quantidade, 0),
+    [items]
   )
 
   useEffect(() => {
     window.scrollTo(0, 0)
 
-    fetch(`https://api-ebac.vercel.app/api/efood/restaurantes/${id}`)
+    fetch(API_ENDPOINTS.restaurantePorId(String(id)))
       .then((res) => res.json())
       .then((res) => setRestaurante(res))
       .catch((err) => console.error('Erro ao carregar o restaurante:', err))
@@ -111,8 +112,7 @@ export default function Perfil() {
                   dispatch(open())
                 }}
               >
-                Adicionar ao carrinho - R${' '}
-                {modalProduto.preco.toFixed(2).replace('.', ',')}
+                Adicionar ao carrinho - {formatPrice(modalProduto.preco)}
               </button>
             </ModalDetails>
           </ModalContent>
