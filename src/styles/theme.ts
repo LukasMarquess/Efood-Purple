@@ -4,6 +4,7 @@ export const theme = {
     primaryLight: '#FFEBD9',
     background: '#FFF8F2',
     white: '#FFFFFF',
-    text: '#E66767'
+    text: '#E66767',
+    black: '#000000'
   }
 }

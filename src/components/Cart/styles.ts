@@ -103,4 +103,68 @@ export const CheckoutButton = styled.button`
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
+  margin-bottom: 16px;
+`
+export const Title = styled.h2`
+  color: ${theme.colors.primaryLight};
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+`
+
+export const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`
+
+type InputGroupProps = {
+  maxWidth?: string
+}
+
+export const InputGroup = styled.div<InputGroupProps>`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+  width: ${(props) => props.maxWidth || '100%'};
+
+  label {
+    color: ${theme.colors.primaryLight};
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  input {
+    background-color: ${theme.colors.primaryLight};
+    color: ${theme.colors.black};
+    border: 2px solid ${theme.colors.primaryLight};
+    height: 32px;
+    padding: 0 8px;
+    font-size: 14px;
+    font-weight: 700;
+    outline: none;
+    width: 100%;
+
+    &.error {
+      border: 2px solid red;
+    }
+  }
+`
+
+export const ErrorMessage = styled.span`
+  color: #ffcccc;
+  font-size: 12px;
+  margin-top: 4px;
+`
+
+export const ConfirmationText = styled.div`
+  color: ${theme.colors.primaryLight};
+  font-size: 14px;
+  line-height: 22px;
+  margin-bottom: 24px;
+
+  p {
+    margin-bottom: 16px;
+  }
 `
