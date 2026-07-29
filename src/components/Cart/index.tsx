@@ -44,6 +44,8 @@ export const Cart = () => {
     }, 0)
   }
 
+  const currentYear = new Date().getFullYear()
+
   // Schema de Validação com Yup
   const validationSchema = Yup.object({
     receiver: Yup.string().when('step', {
@@ -84,11 +86,27 @@ export const Cart = () => {
     }),
     expiresMonth: Yup.string().when('step', {
       is: 'payment',
-      then: (schema) => schema.required('Campo obrigatório')
+      then: (schema) =>
+        schema
+          .required('Campo obrigatório')
+          .min(2, 'Mês inválido')
+          .test('valid-month', 'Mês inválido', (value) => {
+            if (!value) return false
+            const month = parseInt(value, 10)
+            return month >= 1 && month <= 12
+          })
     }),
     expiresYear: Yup.string().when('step', {
       is: 'payment',
-      then: (schema) => schema.required('Campo obrigatório')
+      then: (schema) =>
+        schema
+          .required('Campo obrigatório')
+          .min(4, 'Ano inválido')
+          .test('valid-year', 'Ano vencido', (value) => {
+            if (!value) return false
+            const year = parseInt(value, 10)
+            return year >= currentYear
+          })
     })
   })
 
