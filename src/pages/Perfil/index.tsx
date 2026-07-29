@@ -32,6 +32,11 @@ export default function Perfil() {
   const dispatch = useDispatch()
   const { items } = useSelector((state: RootState) => state.cart)
 
+  const quantidadeTotalItens = items.reduce(
+    (acumulador, item) => acumulador + item.quantidade,
+    0
+  )
+
   useEffect(() => {
     window.scrollTo(0, 0)
 
@@ -52,7 +57,7 @@ export default function Perfil() {
           <Link to="/">Restaurantes</Link>
           <img src={logoImg} alt="Logo da efood" />
           <p onClick={() => dispatch(open())} style={{ cursor: 'pointer' }}>
-            {items.length} produto(s) no carrinho
+            {quantidadeTotalItens} produto(s) no carrinho
           </p>
         </HeaderContent>
       </HeaderBar>

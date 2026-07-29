@@ -20,10 +20,9 @@ export const Cart = () => {
   const removeItem = (id: number) => dispatch(remove(id))
 
   const getTotalPrice = () => {
-    return items.reduce(
-      (acumulador, valorAtual) => acumulador + valorAtual.preco,
-      0
-    )
+    return items.reduce((acumulador, valorAtual) => {
+      return acumulador + valorAtual.preco * valorAtual.quantidade
+    }, 0)
   }
 
   if (!isOpen) return null
@@ -36,8 +35,12 @@ export const Cart = () => {
           <CartItem key={item.id}>
             <img src={item.foto} alt={item.nome} />
             <div>
-              <h3>{item.nome}</h3>
-              <span>R$ {item.preco.toFixed(2).replace('.', ',')}</span>
+              <h3>
+                {item.quantidade}x {item.nome}
+              </h3>
+              <span>
+                R$ {(item.preco * item.quantidade).toFixed(2).replace('.', ',')}
+              </span>
             </div>
 
             <button onClick={() => removeItem(item.id)} type="button">
