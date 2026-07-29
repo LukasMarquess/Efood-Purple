@@ -19,7 +19,8 @@ import {
   Row,
   InputGroup,
   ErrorMessage,
-  ConfirmationText
+  ConfirmationText,
+  EmptyText
 } from './styles'
 
 type Step = 'cart' | 'delivery' | 'payment' | 'confirmation'
@@ -32,7 +33,7 @@ export const Cart = () => {
 
   const closeCart = () => {
     dispatch(close())
-    setStep('cart') // Reseta para o carrinho ao fechar
+    setStep('cart')
   }
 
   const removeItem = (id: number) => dispatch(remove(id))
@@ -153,12 +154,10 @@ export const Cart = () => {
     }
   })
 
-  // Funções de navegação do Formik
   const goToPayment = async () => {
     formik.setFieldValue('step', 'delivery')
     const errors = await formik.validateForm()
 
-    // Verifica apenas os erros da etapa de entrega
     if (
       !errors.receiver &&
       !errors.address &&
@@ -186,10 +185,10 @@ export const Cart = () => {
   }
 
   const handleFinishOrder = () => {
-    formik.resetForm() // Limpa todos os campos de endereço e pagamento
-    dispatch(clear()) // Esvazia o carrinho usando a função que criamos no Redux
-    dispatch(close()) // Fecha a barra lateral
-    setStep('cart') // Prepara o carrinho para a próxima compra
+    formik.resetForm()
+    dispatch(clear())
+    dispatch(close())
+    setStep('cart')
   }
 
   if (!isOpen) return null
@@ -201,28 +200,42 @@ export const Cart = () => {
         {/* PASSO 1: CARRINHO DE COMPRAS */}
         {step === 'cart' && (
           <>
-            {items.map((item) => (
-              <CartItem key={item.id}>
-                <img src={item.foto} alt={item.nome} />
-                <div>
-                  <h3>{item.nome}</h3>
-                  <span>
-                    {item.quantidade}x R${' '}
-                    {item.preco.toFixed(2).replace('.', ',')}
-                  </span>
-                </div>
-                <button onClick={() => removeItem(item.id)} type="button">
-                  <img className="lixeira" src={lixeiraImg} alt="Remover" />
-                </button>
-              </CartItem>
-            ))}
-            <TotalContainer>
-              <span>Valor total</span>
-              <span>R$ {getTotalPrice().toFixed(2).replace('.', ',')}</span>
-            </TotalContainer>
-            <CheckoutButton onClick={() => setStep('delivery')}>
-              Continuar com a entrega
-            </CheckoutButton>
+            {items.length > 0 ? (
+              <>
+                {items.map((item) => (
+                  <CartItem key={item.id}>
+                    <img src={item.foto} alt={item.nome} />
+                    <div>
+                      <h3>
+                        {item.quantidade}x {item.nome}
+                      </h3>
+                      <span>
+                        R${' '}
+                        {(item.preco * item.quantidade)
+                          .toFixed(2)
+                          .replace('.', ',')}
+                      </span>
+                    </div>
+                    <button onClick={() => removeItem(item.id)} type="button">
+                      <img className="lixeira" src={lixeiraImg} alt="Remover" />
+                    </button>
+                  </CartItem>
+                ))}
+
+                <TotalContainer>
+                  <span>Valor total</span>
+                  <span>R$ {getTotalPrice().toFixed(2).replace('.', ',')}</span>
+                </TotalContainer>
+                <CheckoutButton onClick={() => setStep('delivery')}>
+                  Continuar com a entrega
+                </CheckoutButton>
+              </>
+            ) : (
+              <EmptyText>
+                O carrinho está vazio, adicione pelo menos um produto para
+                continuar com a compra.
+              </EmptyText>
+            )}
           </>
         )}
 

@@ -103,7 +103,7 @@ export const CheckoutButton = styled.button`
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 `
 export const Title = styled.h2`
   color: ${theme.colors.primaryLight};
@@ -114,8 +114,13 @@ export const Title = styled.h2`
 
 export const Row = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: 24px;
   width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0;
+  }
 `
 
 type InputGroupProps = {
@@ -126,7 +131,12 @@ export const InputGroup = styled.div<InputGroupProps>`
   display: flex;
   flex-direction: column;
   margin-bottom: 8px;
-  width: ${(props) => props.maxWidth || '100%'};
+  width: 100%;
+  max-width: ${(props) => props.maxWidth || '100%'};
+
+  @media (max-width: 768px) {
+    max-width: 100%; /* No celular, os campos ocupam toda a largura disponível */
+  }
 
   label {
     color: ${theme.colors.primaryLight};
@@ -167,4 +177,11 @@ export const ConfirmationText = styled.div`
   p {
     margin-bottom: 16px;
   }
+`
+export const EmptyText = styled.p`
+  font-size: 14px;
+  line-height: 22px;
+  color: ${theme.colors.primaryLight};
+  text-align: center;
+  margin-top: 24px;
 `
