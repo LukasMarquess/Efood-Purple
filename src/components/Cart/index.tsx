@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { IMaskInput } from 'react-imask'
+import { close, remove, clear } from '../../store/reducers/cart'
 
 import { RootState } from '../../store'
-import { close, remove } from '../../store/reducers/cart'
 import lixeiraImg from '../../assets/lixeira.png'
 
 import {
@@ -94,7 +94,7 @@ export const Cart = () => {
   // Configuração do Formik
   const formik = useFormik({
     initialValues: {
-      step: 'delivery', // Campo oculto para condicional do Yup
+      step: 'delivery',
       receiver: '',
       address: '',
       city: '',
@@ -109,7 +109,6 @@ export const Cart = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      // Mock da requisição POST (você pode substituir pelo RTK Query depois)
       try {
         const payload = {
           products: items.map((item) => ({ id: item.id, price: item.preco })),
@@ -184,6 +183,13 @@ export const Cart = () => {
     const isTouched = fieldName in formik.touched
     const isInvalid = fieldName in formik.errors
     return isTouched && isInvalid
+  }
+
+  const handleFinishOrder = () => {
+    formik.resetForm() // Limpa todos os campos de endereço e pagamento
+    dispatch(clear()) // Esvazia o carrinho usando a função que criamos no Redux
+    dispatch(close()) // Fecha a barra lateral
+    setStep('cart') // Prepara o carrinho para a próxima compra
   }
 
   if (!isOpen) return null
@@ -474,7 +480,9 @@ export const Cart = () => {
                 gastronômica. Bom apetite!
               </p>
             </ConfirmationText>
-            <CheckoutButton onClick={closeCart}>Concluir</CheckoutButton>
+            <CheckoutButton onClick={handleFinishOrder}>
+              Concluir
+            </CheckoutButton>
           </>
         )}
       </Sidebar>
