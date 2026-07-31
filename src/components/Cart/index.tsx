@@ -37,6 +37,7 @@ export const Cart = () => {
   }
 
   const removeItem = (id: number) => dispatch(remove(id))
+  const [cepError, setCepError] = useState(false)
 
   const getTotalPrice = () => {
     return items.reduce((acumulador, valorAtual) => {
@@ -70,9 +71,16 @@ export const Cart = () => {
       is: (val: string) => val === 'delivery' || val === 'payment',
       then: (schema) => schema.required('Campo obrigatório')
     }),
+    complement: Yup.string().when('step', {
+      is: (val: string) => val === 'delivery' || val === 'payment',
+      then: (schema) => schema.optional()
+    }),
     cardName: Yup.string().when('step', {
       is: 'payment',
-      then: (schema) => schema.required('Campo obrigatório')
+      then: (schema) =>
+        schema
+          .required('Campo obrigatório')
+          .matches(/^[a-zA-ZÀ-ÿ\s]+$/, 'O nome deve conter apenas letras')
     }),
     cardNumber: Yup.string().when('step', {
       is: 'payment',
@@ -176,6 +184,10 @@ export const Cart = () => {
     formik.setFieldValue('step', 'delivery')
     const errors = await formik.validateForm()
 
+    if (cepError) {
+      errors.zipCode = 'CEP não encontrado'
+    }
+
     if (
       !errors.receiver &&
       !errors.address &&
@@ -193,6 +205,9 @@ export const Cart = () => {
         zipCode: true,
         number: true
       })
+      if (cepError) {
+        formik.setFieldError('zipCode', 'CEP não encontrado')
+      }
     }
   }
 
@@ -207,6 +222,29 @@ export const Cart = () => {
     dispatch(clear())
     dispatch(close())
     setStep('cart')
+  }
+
+  const checkCEP = async (e: React.FocusEvent<HTMLInputElement>) => {
+    formik.handleBlur(e)
+    const cep = e.target.value.replace(/\D/g, '')
+
+    if (cep.length === 8) {
+      try {
+        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        const data = await response.json()
+
+        if (!data.erro) {
+          setCepError(false) // <-- Avisa que o CEP é válido
+          formik.setFieldValue('address', `${data.logradouro}, ${data.bairro}`)
+          formik.setFieldValue('city', `${data.localidade} - ${data.uf}`)
+        } else {
+          setCepError(true) // <-- Avisa que o CEP é falso
+          formik.setFieldError('zipCode', 'CEP não encontrado')
+        }
+      } catch (error) {
+        console.error('Erro ao buscar o CEP', error)
+      }
+    }
   }
 
   if (!isOpen) return null
@@ -321,7 +359,7 @@ export const Cart = () => {
                     mask="00000-000"
                     value={formik.values.zipCode}
                     onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
+                    onBlur={checkCEP}
                     className={checkInputHasError('zipCode') ? 'error' : ''}
                   />
                   {checkInputHasError('zipCode') && (
@@ -330,7 +368,6 @@ export const Cart = () => {
                     </ErrorMessage>
                   )}
                 </InputGroup>
-
                 <InputGroup maxWidth="155px">
                   <label htmlFor="number">Número</label>
                   <input
