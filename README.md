@@ -1,71 +1,92 @@
-# React + TypeScript + Vite
+# eFood
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web estilo delivery para explorar restaurantes, visualizar cardápios e montar um carrinho de compras. O projeto foi desenvolvido com React, TypeScript e Vite, com navegação em rotas e estado global para o carrinho.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Listagem de restaurantes na página inicial
+- Página de perfil de cada restaurante com cardápio
+- Modal de detalhes do produto ao clicar em um item
+- Adição de itens ao carrinho com controle de quantidade
+- Carrinho aberto a partir do estado global com Redux Toolkit
+- Interface responsiva com Styled Components
 
-## React Compiler
+## Tecnologias utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- TypeScript
+- Vite
+- Redux Toolkit
+- React Router DOM
+- Styled Components
+- Formik, Yup e React IMask
 
-## Expanding the ESLint configuration
+## Estrutura do projeto
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname
-      }
-      // other options...
-    }
-  }
-])
+```text
+src/
+  components/
+    Cart/
+    Footer/
+    ProductCard/
+    RestaurantCard/
+  pages/
+    Home/
+    Perfil/
+  store/
+    reducers/
+  styles/
+  types.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Requisitos
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Node.js 18+ ou superior
+- npm 9+ ou superior
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname
-      }
-      // other options...
-    }
-  }
-])
+## Instalação
+
+```bash
+npm install
 ```
+
+## Scripts disponíveis
+
+```bash
+npm run dev
+```
+
+Inicia o servidor de desenvolvimento do Vite.
+
+```bash
+npm run build
+```
+
+Gera a build de produção do projeto.
+
+```bash
+npm run lint
+```
+
+Executa a análise estática do código com ESLint.
+
+```bash
+npm run preview
+```
+
+Abre uma pré-visualização da build gerada.
+
+## Como usar
+
+1. Execute o comando de instalação.
+2. Inicie o projeto com `npm run dev`.
+3. Acesse a aplicação no navegador em `http://localhost:5173`.
+4. Navegue pelos restaurantes e adicione produtos ao carrinho.
+
+## Dados da aplicação
+
+Os restaurantes e cardápios são carregados a partir de uma API externa:
+
+- https://api-ebac.vercel.app/api/efood/restaurantes
+
+Essa API fornece os dados exibidos na home e nas páginas de perfil dos restaurantes.

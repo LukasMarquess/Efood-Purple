@@ -52,7 +52,10 @@ export const Cart = () => {
     receiver: Yup.string().when('step', {
       is: (val: string) => val === 'delivery' || val === 'payment',
       then: (schema) =>
-        schema.required('Campo obrigatório').min(3, 'Nome muito curto')
+        schema
+          .required('Campo obrigatório')
+          .min(3, 'Nome muito curto')
+          .matches(/^[a-zA-ZÀ-ÿ\s]+$/, 'O nome deve conter apenas letras')
     }),
     address: Yup.string().when('step', {
       is: (val: string) => val === 'delivery' || val === 'payment',
